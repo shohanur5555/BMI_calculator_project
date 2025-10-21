@@ -2,6 +2,8 @@ import 'package:bmi_calculate_app/bmi/bmi_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'bmi_details_page.dart';
+
 class BmiPage extends StatefulWidget {
   const BmiPage({super.key});
 
@@ -125,7 +127,9 @@ class _BmiPageState extends State<BmiPage> {
                     borderRadius: BorderRadiusGeometry.circular(8.0),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => BmiDetailsPage()));
+                },
                 child: Text('View Details'),
               ),
             ),
