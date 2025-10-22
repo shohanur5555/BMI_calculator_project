@@ -3,7 +3,6 @@ import 'package:bmi_calculate_app/bmi/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'constants.dart';
 
 class BmiDetailsPage extends StatelessWidget {
   const BmiDetailsPage({super.key});
