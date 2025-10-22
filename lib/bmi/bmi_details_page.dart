@@ -63,7 +63,7 @@ class BmiDetailsPage extends StatelessWidget {
                   )
                 ],
               ),*/
-            )
+
 
         ],
       )),

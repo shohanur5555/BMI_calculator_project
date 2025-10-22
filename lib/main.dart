@@ -3,12 +3,15 @@ import 'package:provider/provider.dart';
 
 import 'bmi/bmi_page.dart';
 import 'bmi/bmi_provider.dart';
+import 'dicegame/dice_game.dart';
+import 'dicegame/game_provider.dart';
 
 void main() {
   runApp(
       MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => BmiProvider()),
+            ChangeNotifierProvider(create: (context) => GameProvider()),
           ],
           child: const MyApp()));
 
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const BmiPage(),
+      home: const DiceGame(),
       debugShowCheckedModeBanner: false,
     );
   }
