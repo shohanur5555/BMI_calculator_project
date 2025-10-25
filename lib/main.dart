@@ -5,6 +5,8 @@ import 'bmi/bmi_page.dart';
 import 'bmi/bmi_provider.dart';
 import 'dicegame/dice_game.dart';
 import 'dicegame/game_provider.dart';
+import 'dicegame/my_account.dart';
+import 'dicegame/start_screen.dart';
 
 void main() {
   runApp(
@@ -28,7 +30,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const DiceGame(),
+      initialRoute: StartScreen.routeName,
+      routes: {
+        StartScreen.routeName : (context) => const StartScreen(),
+        MyAccountScreen.routeName : (context) => const MyAccountScreen(),
+        DiceGame.routeName : (context) => const DiceGame(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }

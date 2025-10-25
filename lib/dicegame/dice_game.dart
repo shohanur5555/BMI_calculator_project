@@ -1,8 +1,13 @@
 import 'dart:math';
 
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'game_provider.dart';
 
 class DiceGame extends StatefulWidget {
+  static const String routeName ='/game';
   const DiceGame({super.key});
 
   @override
@@ -10,48 +15,63 @@ class DiceGame extends StatefulWidget {
 }
 
 class _DiceGameState extends State<DiceGame> {
-  final _diceList = [
-    'assets/dice_image/d1.png',
-    'assets/dice_image/d2.png',
-    'assets/dice_image/d3.png',
-    'assets/dice_image/d4.png',
-    'assets/dice_image/d5.png',
-    'assets/dice_image/d6.png',
-
-  ];
-  int _index1 = 0;
-  int _index2 = 0;
-  final _random = Random();
-
-  rollTheDice (){
-    setState(() {
-      _index1 = _random.nextInt(6);
-      _index2 = _random.nextInt(6);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-        title: Text('Dice Game', style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text('Dice Game', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(_diceList[_index1], width: 100,fit: BoxFit.cover,),
-              SizedBox(width: 15.0,),
-              Image.asset(_diceList[_index2], width: 100,fit: BoxFit.cover,),
-            ],
-          ),
-          ElevatedButton(onPressed: rollTheDice, child: Text('Roll The Dice')),
+      body: Consumer<GameProvider>(
+        builder: (context, provider, _) => Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Your Point ${provider.totalPoint}'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  provider.diceOneImage,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(width: 15.0),
+                Image.asset(
+                  provider.diceTwoImage,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+            SizedBox(height: 11,),
+            Text(
+              'Dice Sum : ${provider.diceSum}',
+              style: TextStyle(fontSize: 20),
+            ),
+            if (provider.terget > 0 && !provider.isGameOver)
+              Text(
+                'Your New Target : ${provider.terget}',
+                style: TextStyle(fontSize: 20),
+              ),
+            if (provider.terget > 0 && !provider.isGameOver)
+              Text(
+                'Keep rolling until match it : ${provider.terget}',
+                style: TextStyle(fontSize: 18,color: Colors.grey),
 
-
-        ],
+              ),
+            Text(provider.status, style: TextStyle(fontSize: 24)),
+            Spacer(),
+            if (!provider.isGameOver)
+              ElevatedButton(
+                onPressed: provider.rollTheDice,
+                child: Text('Roll The Dice'),
+              ),
+            if (provider.isGameOver)
+              ElevatedButton(
+                onPressed: provider.resetGame,
+                child: Text('RESET'),
+              ),
+          ],
+        ),
       ),
     );
   }
