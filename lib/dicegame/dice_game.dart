@@ -1,6 +1,7 @@
 import 'dart:math';
 
 
+import 'package:bmi_calculate_app/dicegame/widget_method.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +63,22 @@ class _DiceGameState extends State<DiceGame> {
             Spacer(),
             if (!provider.isGameOver)
               ElevatedButton(
-                onPressed: provider.rollTheDice,
+                onPressed: (){
+                             provider.rollTheDice();
+                             if(provider.winingStatus != GameStatus.none){
+                               final title = provider.winingStatus == GameStatus.win ? 'WINNER' : 'LOSER';
+                               final image = provider.winingStatus == GameStatus.win ? 'assets/dice_image/trophy.png' : 'assets/dice_image/lose.png';
+                               final canPlay = provider.canPlayerPlay;
+                               final _msg = provider.winingStatus == GameStatus.win ? 'You are won ${provider.winingPoint}' : 'You are losing ${provider.losingPoint}';
+                               showStatusDialog(context: context, title: title, image: image, massage: _msg, onContinueButtonPressed: (){
+                                 if(canPlay){
+                                   provider.resetGame();
+                                 }else{
+                                   Navigator.pop(context);
+                                 }
+                               }, diceSum: provider.diceSum);
+                             }
+                         },
                 child: Text('Roll The Dice'),
               ),
             if (provider.isGameOver)

@@ -23,9 +23,9 @@ class GameProvider with ChangeNotifier{
   int _index2 = 0;
   final _random = Random();
 
-  final _initialPoint = 300;
   final _winingPoint = 100;
   final _losingPoint = 100;
+  final _minPointRequired =100;
   final caseTergetDeductionPoint = 10;
 
   int _diceSum = 0;
@@ -34,7 +34,7 @@ class GameProvider with ChangeNotifier{
   String _status = '';
   bool _isGameOver = false;
 
-  get initialPoint => _initialPoint;
+  bool get canPlayerPlay => _totalPoint >= _minPointRequired;
 
   get winingPoint => _winingPoint;
 
@@ -73,6 +73,7 @@ class GameProvider with ChangeNotifier{
     _terget =0;
     _status ='';
     _isGameOver =false;
+    winingStatus = GameStatus.none;
     notifyListeners();
   }
 
