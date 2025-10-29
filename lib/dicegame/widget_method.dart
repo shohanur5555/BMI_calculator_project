@@ -6,6 +6,8 @@ showStatusDialog(
   required String title,
   required String image,
   required String massage,
+  required int currentPoint,
+  required bool canPlay,
   required int diceSum,
   required VoidCallback onContinueButtonPressed,
 }
@@ -18,6 +20,7 @@ showStatusDialog(
       children: [
         Text('Your scored : $diceSum'),
         Text(massage, style: TextStyle(fontSize: 18.0),),
+        if(!canPlay) Text('You are out of the game your current point is \n $currentPoint'),
         Image.asset(image, height: 250, width: 150, fit: BoxFit.contain,)
       ],
     ),
